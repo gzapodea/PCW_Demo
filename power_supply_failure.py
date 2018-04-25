@@ -30,9 +30,8 @@ device_sn = cli("sh ver | in System Serial Number")
 
 
 # retrieve the device location
-# dnac_token = dnac_apis.get_dnac_jwt_token()
-# location = dnac_apis.get_device_location(device_name, dnac_token)
-location = "NYC, floor 3"
+dnac_token = dnac_apis.get_dnac_jwt_token()
+location = dnac_apis.get_device_location(device_name, dnac_token)
 
 
 # define the incident description and comment
