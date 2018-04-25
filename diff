@@ -1,0 +1,2 @@
+Init text file for the diff config.
+The IOS XE device will save the diff between the baseline and running config in this file
