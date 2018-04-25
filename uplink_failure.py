@@ -4,7 +4,6 @@
 
 
 import service_now_apis
-import dnac_apis
 import time
 import requests
 import os
@@ -18,11 +17,8 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)  # Disable insecure https warnings
 
 
-# read the syslog entry that triggered the event
-syslog_input = cli("show logging | in %PLATFORM_FEP-1-FRU_PS_SIGNAL_FAULTY")
-syslog_lines = syslog_input.split("\n")
-lines_no = len(syslog_lines) - 2
-syslog_info = syslog_lines[lines_no]
+# syslog entry that triggered the event
+syslog_info = "%LINK-3-UPDOWN: Interface GigabitEthernet1/0/1, changed state to down"
 
 
 # retrieve the device hostname and S/N
@@ -36,26 +32,21 @@ location = dnac_apis.get_device_location(device_name, dnac_token)
 
 
 # define the incident description and comment
-short_description = "Redundant Power Supply Failure - IOS XE Automation"
-comment = "The device with the " + device_name + "\n has detected a Redundant Power Supply failure"
+short_description = "Switch Uplink Down - IOS XE Automation"
+comment = "The device with the " + device_name + "\n has detected an Uplink Interface Down"
 comment += "\n\nThe device SN is: " + device_sn
 comment += "\n\nThe device location is " + location
-comment += "\n\nSyslog: " + syslog_info + "\n\nSwitch Beacon LED turned ON"
+comment += "\n\nSyslog: " + syslog_info
 
 
 # create a new ServiceNow incident
-incident = service_now_apis.create_incident(short_description, comment, SNOW_DEV, 1)
+incident = service_now_apis.create_incident(short_description, comment, SNOW_DEV, 3)
 
 
-# write the new incident name to file in /bootflash/PCW_Demo
-incident_file = open("/bootflash/PCW_Demo/power_ticket.txt", "w")
+# write the new incident name to file in /bootflash/PCW_DEMO
+incident_file = open("/bootflash/PCW_Demo/uplink_ticket.txt", "w")
 incident_file.write(incident)
 incident_file.close()
 
-time.sleep(1)
 
-
-# turn on the blue beacon LED on the device
-cli("configure terminal\nhw-module beacon on switch 1")
-
-print("End Application Run Power Supply Failure")
+print("End Application Run Uplink Interface Down")

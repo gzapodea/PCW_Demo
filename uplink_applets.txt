@@ -1,0 +1,14 @@
+event manager applet uplink_failure
+ event syslog pattern "%LINK-3-UPDOWN: Interface GigabitEthernet1/0/1, changed state to down"
+ action 10 cli command "enable"
+ action 11 cli command "guestshell run python /bootflash/PCW_Demo/uplink_failure.py"
+ action 12 cli command "end"
+ action 13 cli command "exit"
+!
+event manager applet uplink_recovery
+ event syslog pattern "%LINK-3-UPDOWN: Interface GigabitEthernet1/0/1, changed state to up"
+ action 10 cli command "enable"
+ action 11 cli command "guestshell run python /bootflash/PCW_Demo/uplink_recovery.py"
+ action 12 cli command "end"
+ action 13 cli command "exit"
+!
