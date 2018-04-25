@@ -1,4 +1,4 @@
-# **PCW**
+# **Partner Connection Week 2018 Demo**
 
 This repo is used to share sample code that will be used for the Partner Connection Week Demo.
 
