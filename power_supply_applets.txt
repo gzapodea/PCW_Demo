@@ -1,0 +1,20 @@
+event manager applet power_supply_failure
+ event syslog pattern "%PLATFORM_FEP-1-FRU_PS_SIGNAL_FAULTY:"
+ action 10 cli command "enable"
+ action 11 cli command "guestshell run python /bootflash/PCW_Demo/power_supply_failure.py"
+ action 12 cli command "end"
+ action 13 cli command "exit"
+!
+event manager applet power_supply_recovery_1
+ event syslog pattern "%PLATFORM_FEP-1-FRU_PS_SIGNAL_OK:"
+ action 10 cli command "enable"
+ action 11 cli command "guestshell run python /bootflash/PCW_Demo/power_supply_recovery.py"
+ action 12 cli command "end"
+ action 13 cli command "exit"
+!
+event manager applet power_supply_recovery_2
+ event syslog pattern "%PLATFORM_FEP-1-FRU_PS_SUSTAINED_OVERLOAD_RECOVERY:"
+ action 10 cli command "enable"
+ action 11 cli command "guestshell run python /bootflash/PCW_Demo/power_supply_recovery.py"
+ action 12 cli command "end"
+ action 13 cli command "exit"
