@@ -9,6 +9,7 @@ import difflib
 import requests
 import json
 import service_now_apis
+import dnac_apis
 import os
 os.chdir("/bootflash/PCW_Demo")
 
