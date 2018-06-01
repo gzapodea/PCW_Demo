@@ -38,7 +38,7 @@ location = dnac_apis.get_device_location(device_name, dnac_token)
 # define the incident description and comment
 short_description = "Redundant Power Supply Failure - IOS XE Automation"
 comment = "The device with the " + device_name + "\n has detected a Redundant Power Supply failure"
-comment += "\n\nThe device SN is: " + device_sn
+comment += "\n\nThe device " + device_sn
 comment += "\n\nThe device location is " + location
 comment += "\n\nSyslog: " + syslog_info + "\n\nSwitch Beacon LED turned ON"
 
